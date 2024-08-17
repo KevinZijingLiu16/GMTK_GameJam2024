@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool movingRight = true;
 
+
+    public TextMeshProUGUI scaleText;
+    private Vector3 initialScale;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
         CircleCollider2D groundCheckCollider = groundCheck.gameObject.AddComponent<CircleCollider2D>();
         groundCheckCollider.isTrigger = true;
         groundCheckCollider.radius = groundCheckRadius;
+
+        initialScale = transform.localScale;
     }
 
     void Update()
@@ -46,6 +53,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Move();
+
+        UpdateScaleText();
+    }
+
+    private void UpdateScaleText()
+    {
+        float scaleMultiplier = transform.localScale.magnitude / initialScale.magnitude;
+        scaleText.text = "Scale: " + scaleMultiplier.ToString("F2") + "x";
     }
 
     void Move()
