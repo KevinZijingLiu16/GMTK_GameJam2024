@@ -313,18 +313,19 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  scaleIncreaseFactor: 1.5
-  gravityScaleIncrease: 0.8
-  jumpSpeedDecreaseFactor: 0.8
-  scaleDecreaseFactor: 0.7
-  gravityScaleDecrease: 1.1
-  jumpSpeedIncreaseFactor: 1.1
+  foodScaleStep: 0.25
+  foodGravityScaleStep: 0.1
+  foodJumpSpeedStep: 0.5
+  lostWeightScaleStep: 0.25
+  lostWeightGravityScaleStep: 0.1
+  lostWeightJumpSpeedStep: 0.5
   maxScale: {x: 5, y: 5, z: 5}
   minScale: {x: 0.2, y: 0.2, z: 0.2}
   maxGravityScale: 5
   minGravityScale: 0.2
   maxJumpSpeed: 30
   minJumpSpeed: 2
+  scaleText: {fileID: 0}
 --- !u!1 &8300996722783406518
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,9 +353,9 @@ Transform:
   m_GameObject: {fileID: 8300996722783406518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.188, y: 0.916, z: 0}
-  m_LocalScale: {x: 23.312237, y: 21.66736, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.38, y: -1.7, z: 0}
+  m_LocalScale: {x: 2.93, y: 2.93, z: 2.93}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6599777388820912076}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -399,12 +400,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 819198723478298380, guid: 2083775e9a6509343b255038448305be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4718c9001a0e76143937d0caa566ebc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8.47, y: 7.06}
+  m_Size: {x: 10.8, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -430,20 +431,20 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -3.7313535, y: -3.1201506, z: 0}
-  - {x: -4.5783734, y: -0.30538586, z: 0}
-  - {x: -3.5634642, y: 1.9588907, z: 0}
-  - {x: -2.3959498, y: 2.973423, z: 0}
-  - {x: 0.12224108, y: 3.861444, z: 0}
-  - {x: 2.7523506, y: 2.8368206, z: 0}
-  - {x: 3.78732, y: 1.753966, z: 0}
-  - {x: 4.7668962, y: -0.920174, z: 0}
-  - {x: 3.5075119, y: -3.2567668, z: 0}
-  - {x: 2.0808392, y: -3.857456, z: 0}
-  - {x: -2.0601826, y: -3.8574417, z: 0}
-  m_ShapePathHash: -886014838
+  - {x: -0.9633326, y: 0.21445031, z: 0}
+  - {x: -0.938673, y: 0.93340766, z: 0}
+  - {x: -0.55284756, y: 1.2486484, z: 0}
+  - {x: -0.2840251, y: 1.4868706, z: 0}
+  - {x: 0.19713175, y: 1.6150994, z: 0}
+  - {x: 0.9147566, y: 1.2977746, z: 0}
+  - {x: 1.3449485, y: 0.9074909, z: 0}
+  - {x: 1.3010552, y: 0.15715824, z: 0}
+  - {x: 1.1581835, y: 0.05218339, z: 0}
+  - {x: 0.87128335, y: -0.13809356, z: 0}
+  - {x: -0.5714996, y: -0.11242847, z: 0}
+  m_ShapePathHash: -1500241137
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37114
+  m_InstanceId: 69994
   m_LocalBounds:
-    m_Center: {x: 0.094261646, y: 0.0019938946, z: 0}
-    m_Extent: {x: 4.672635, y: 3.8594499, z: 0}
+    m_Center: {x: 0.190808, y: 0.738503, z: 0}
+    m_Extent: {x: 1.1541406, y: 0.8765965, z: 0}

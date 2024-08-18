@@ -73,7 +73,7 @@ public class DragDropFixed : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         
         boxCollider.size = spriteRenderer.bounds.size / worldPlatform.transform.localScale.x;
 
-      
+        worldPlatform.AddComponent<FadeAndDestroy>();
     }
 
 }

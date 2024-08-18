@@ -79,6 +79,8 @@ public class DragDropBouncing : MonoBehaviour, IPointerDownHandler, IBeginDragHa
 
         
         worldPlatform.AddComponent<BouncingPlatformCollisionHandler>().Initialize(bounceMultiplier, effectDuration, scaleEffectDuration, pressedMulX, pressedMulY, releasedMulX, releasedMulY);
+
+        worldPlatform.AddComponent<FadeAndDestroy>();
     }
 
     

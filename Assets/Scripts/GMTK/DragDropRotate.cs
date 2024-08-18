@@ -74,6 +74,8 @@ public class DragDropRotate : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         RotatingPlatform rotatingPlatform = worldPlatform.AddComponent<RotatingPlatform>();
         rotatingPlatform.rotationSpeed = rotationSpeed;
         rotatingPlatform.clockwise = clockwise;
+
+        worldPlatform.AddComponent<FadeAndDestroy>();
     }
 }
 

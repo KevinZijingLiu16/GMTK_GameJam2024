@@ -73,7 +73,8 @@ public class DragDropWall : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         
         boxCollider.size = spriteRenderer.bounds.size / worldPlatform.transform.localScale.x;
 
-        
+        worldPlatform.AddComponent<FadeAndDestroy>();
+
     }
 
 }
