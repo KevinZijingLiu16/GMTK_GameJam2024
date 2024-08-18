@@ -11,9 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
-    public float scaleStep = 0.25f;
-    public float gravityScaleStep = 0.1f;
-    public float jumpSpeedStep = 0.5f;
+    public float scaleStep = 0.25f; // 每次碰到 Food 或 LostWeight 时 scale 增加或减少的步长
+    public float gravityScaleStep = 0.1f; // 每次scale变化时，gravity的变化量
+    public float jumpSpeedStep = 0.5f; // 每次scale变化时，jumpSpeed的变化量
 
     public Vector3 maxScale = new Vector3(3f, 3f, 3f);
     public Vector3 minScale = new Vector3(0.25f, 0.25f, 0.25f);
@@ -35,8 +35,17 @@ public class PlayerMovement : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public float targetMin = 0f;
-    public float targetMax = 3.2f;
+    public float targetMin = 2.8f; // 目标范围的下限
+    public float targetMax = 3.2f; // 目标范围的上限
+
+    [Header("SoundEffect")]
+    public AudioSource jumpSource;
+    public AudioSource trapSource;
+    public AudioSource foodSource;
+    public AudioSource lostWeightSource;
+    public AudioSource winSource;
+    public AudioSource bounceWeightSource;
+    public AudioSource notYetSource;
 
     void Start()
     {
@@ -53,6 +62,14 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = transform.Find("Image").GetComponent<SpriteRenderer>();
 
         UpdateScaleText();
+
+        jumpSource = GetComponent<AudioSource>();
+        trapSource = GetComponent<AudioSource>();
+        foodSource = GetComponent<AudioSource>();
+        lostWeightSource = GetComponent<AudioSource>();
+        winSource = GetComponent<AudioSource>();
+        bounceWeightSource = GetComponent<AudioSource>();
+        notYetSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -64,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 Jump();
+                jumpSource.Play();
             }
 
             Move();
@@ -111,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             if (playerRb != null)
             {
                 playerRb.velocity = new Vector2(playerRb.velocity.x, jumpSpeed * 2);
+                bounceWeightSource.Play();
             }
         }
         else if (collision.CompareTag("Food"))
@@ -118,7 +137,9 @@ public class PlayerMovement : MonoBehaviour
             if (scaleCounter < maxScale.x)
             {
                 scaleCounter = Mathf.Min(scaleCounter + scaleStep, maxScale.x);
+                foodSource.Play();
                 UpdatePlayerScale();
+                UpdateScaleText(); // 立即更新 scaleText
             }
             Destroy(collision.gameObject);
         }
@@ -127,7 +148,9 @@ public class PlayerMovement : MonoBehaviour
             if (scaleCounter > minScale.x)
             {
                 scaleCounter = Mathf.Max(scaleCounter - scaleStep, minScale.x);
+                lostWeightSource.Play();
                 UpdatePlayerScale();
+                UpdateScaleText(); // 立即更新 scaleText
             }
             Destroy(collision.gameObject);
         }
@@ -138,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.CompareTag("Trap"))
         {
             StartCoroutine(HandleTrapCollision());
+            trapSource.Play();
         }
     }
 
@@ -145,18 +169,17 @@ public class PlayerMovement : MonoBehaviour
     {
         isAtCheckPoint = true; // 停止玩家的移动和跳跃
 
-        // 定义目标 scaleCounter 的范围，例如 2.8 到 3.2
-        
-
         // 检查 scaleCounter 是否在目标范围内
         if (scaleCounter >= targetMin && scaleCounter <= targetMax)
         {
             scaleText.text = "Congrats, you win!";
+            winSource.Play();
             StartCoroutine(ProceedToNextLevel(3f)); // 3秒后进入下一关
         }
         else
         {
             scaleText.text = "Haven't reached the target, go back and try to control your weight.";
+            notYetSource.Play();
             StartCoroutine(RestoreScaleText(3f)); // 3秒后恢复 scaleText
         }
     }
